@@ -8,7 +8,7 @@ var http = require('http'),
 	doorPhoneNumber = process.env.DOOR_PHONE_NUMBER,
 	textOnEntry = process.env.TEXT_ON_ENTRY ? JSON.stringify(process.env.TEXT_ON_ENTRY) : null
 
-app.post('/frontDoor', twilio.webhook, function(req, res){
+app.post('/frontDoor', twilio.webhook(), function(req, res){
 	console.log(req.params)
 	res.send(req.params)
 })

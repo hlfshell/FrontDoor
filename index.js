@@ -10,6 +10,7 @@ var http = require('http'),
 
 app.post('/frontDoor', twilio.webhook, function(req, res){
 	console.log(req.params)
+	res.send(req.params)
 })
 
 app.listen(process.env.PORT || 8000)

@@ -9,7 +9,7 @@ var twilio = require('twilio'),
 	doorPhoneNumber = process.env.DOOR_PHONE_NUMBER,
 	textOnEntry = process.env.TEXT_ON_ENTRY ? JSON.stringify(process.env.TEXT_ON_ENTRY) : null
 
-app.use(twilio.webhook())
+app.use(twilio.webhook(twilioAuthToken, { validate: true }))
 
 app.post('/frontDoor', function(req, res){
 	console.log("Front door has been called!")

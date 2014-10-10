@@ -8,7 +8,7 @@ var twilio = require('twilio'),
 	twilioAuthToken = process.env.TWILIO_AUTH_TOKEN,
 	doorPhoneNumber = process.env.DOOR_PHONE_NUMBER,
 	textOnEntry = process.env.TEXT_ON_ENTRY ? JSON.stringify(process.env.TEXT_ON_ENTRY) : null
-
+	console.log(twilioAuthToken, process.env.TWILIO_AUTH_TOKEN)
 app.use(twilio.webhook(twilioAuthToken, { validate: true }))
 
 app.post('/frontDoor', function(req, res){

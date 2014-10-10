@@ -16,7 +16,7 @@ app.post('/frontDoor', function(req, res){
 
 	var twilioResponse = twilio.TwimlResponse()
 
-	twilioResponse.say('Please enter your password')
+	twilioResponse.say('Please enter your password and press star.')
 		.gather({
 			action: myBaseURL + '/gather',
 			finishOnKey: '*'

@@ -8,10 +8,10 @@ var twilio = require('twilio'),
 	twilioAuthToken = process.env.TWILIO_AUTH_TOKEN,
 	doorPhoneNumber = process.env.DOOR_PHONE_NUMBER,
 	textOnEntry = process.env.TEXT_ON_ENTRY ? JSON.stringify(process.env.TEXT_ON_ENTRY) : null
-	console.log(twilioAuthToken, process.env.TWILIO_AUTH_TOKEN)
-// app.use()
+	
+app.use(twilio.webhook({ validate: false }))
 
-app.post('/frontDoor', twilio.webhook(twilioAuthToken, { validate: true }), function(req, res){
+app.post('/frontDoor', function(req, res){
 	console.log("Front door has been called!")
 
 	var twilioResponse = twilio.TwimlResponse()
@@ -27,8 +27,8 @@ app.post('/frontDoor', twilio.webhook(twilioAuthToken, { validate: true }), func
 
 app.post('/gather', function(req, res){
 	console.log("Gather has been called!")
-
-	console.log('params', req.body)
+	console.log("req", req)
+	console.log('body', req.body)
 
 	res.send(200)
 })

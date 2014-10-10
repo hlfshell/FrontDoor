@@ -21,14 +21,14 @@ app.post('/frontDoor', function(req, res){
 			action: myBaseURL + '/gather',
 			finishOnKey: '*'
 		})
-	console.log(twilioResponse)
+
 	res.send(twilioResponse)
 })
 
 app.post('/gather', function(req, res){
 	console.log("Gather has been called!")
 
-	console.log('params', req.params)
+	console.log('params', req.body)
 
 	res.send(200)
 })

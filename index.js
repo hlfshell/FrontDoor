@@ -1,6 +1,7 @@
 var twilio = require('twilio'),
 	express = require('express'),
 	app = express(),
+	path = require('path'),
 
 	twilioAccountSID = process.env.TWILIO_ACCOUNT_SID,
 	twilioAuthToken = process.env.TWILIO_AUTH_TOKEN,
@@ -9,7 +10,8 @@ var twilio = require('twilio'),
 
 app.post('/frontDoor', twilio.webhook({ validate: false }), function(req, res){
 	console.log(req.params)
-	res.send(req.params)
+	res.sendFile('frontDoor.xml', { root: path.join(__dirname, '../public') })
 })
 
+console.log("Launching front door server")
 app.listen(process.env.PORT || 8000)

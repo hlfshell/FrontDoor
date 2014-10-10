@@ -3,20 +3,34 @@ var twilio = require('twilio'),
 	app = express(),
 	path = require('path'),
 
+	myBaseURL = process.env.MY_BASE_URL,
 	twilioAccountSID = process.env.TWILIO_ACCOUNT_SID,
 	twilioAuthToken = process.env.TWILIO_AUTH_TOKEN,
 	doorPhoneNumber = process.env.DOOR_PHONE_NUMBER,
 	textOnEntry = process.env.TEXT_ON_ENTRY ? JSON.stringify(process.env.TEXT_ON_ENTRY) : null
 
-app.post('/frontDoor', twilio.webhook({ validate: false }), function(req, res){
+app.use(twilio.webhook({ validate: false })
+
+app.post('/frontDoor', function(req, res){
 	console.log("Front door has been called!")
-	console.log(req.params)
 
 	var twilioResponse = twilio.TwimlResponse()
 
-	twilioResponse.say('Hello Keith! This program is currently working')
-
+	twilioResponse.say('Please enter your password')
+		.gather({
+			action: myBaseURL + '/gather',
+			finishOnKey: '*'
+		})
+	console.log(twilioResponse)
 	res.send(twilioResponse)
+})
+
+app.post('/gather', function(req, res){
+	console.log("Gather has been called!")
+
+	console.log('params', req.params)
+
+	res.send(200)
 })
 
 console.log("Launching front door server")

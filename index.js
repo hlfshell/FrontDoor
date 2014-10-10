@@ -9,8 +9,14 @@ var twilio = require('twilio'),
 	textOnEntry = process.env.TEXT_ON_ENTRY ? JSON.stringify(process.env.TEXT_ON_ENTRY) : null
 
 app.post('/frontDoor', twilio.webhook({ validate: false }), function(req, res){
+	console.log("Front door has been called!")
 	console.log(req.params)
-	res.sendFile('frontDoor.xml', { root: path.join(__dirname, '../public') })
+
+	var twilioResponse = twilio.TwimlResponse()
+
+	twilioResponse.say('Hello Keith! This program is currently working')
+
+	res.send(twilioResponse)
 })
 
 console.log("Launching front door server")
